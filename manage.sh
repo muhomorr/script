@@ -121,17 +121,17 @@ declare -Ar kernel_tags_old=(
     [kernel_msm-coral]=android-13.0.0_r0.110
     [kernel_msm-extra-coral]=android-13.0.0_r0.110
 
-    # August 2023
-    [kernel_build-redbull]=android-13.0.0_r0.111
-    [kernel_msm-redbull]=android-13.0.0_r0.111
-    [kernel_msm-modules_qcacld-redbull]=android-13.0.0_r0.111
-    [kernel_msm-extra-redbull]=android-13.0.0_r0.111
+    # Beta 5
+    [kernel_build-redbull]=android-u-beta-5_r0.6
+    [kernel_msm-redbull]=android-u-beta-5_r0.6
+    [kernel_msm-modules_qcacld-redbull]=android-u-beta-5_r0.6
+    [kernel_msm-extra-redbull]=android-u-beta-5_r0.6
 
-    # August 2023
-    [kernel_build-gs]=android-13.0.0_r0.112
-    [kernel_gs]=android-13.0.0_r0.112
-    [kernel_google-modules_gpu-gs]=android-13.0.0_r0.112
-    [kernel_google-modules_wlan_bcmdhd_bcm4389-gs]=android-13.0.0_r0.112
+    # Beta 5
+    [kernel_build-gs]=android-u-beta-5_r0.2
+    [kernel_gs]=android-u-beta-5_r0.2
+    [kernel_google-modules_gpu-gs]=android-u-beta-5_r0.2
+    [kernel_google-modules_wlan_bcmdhd_bcm4389-gs]=android-u-beta-5_r0.2
 )
 
 declare -Ar kernel_tags=(
@@ -140,17 +140,17 @@ declare -Ar kernel_tags=(
     [kernel_msm-coral]=android-13.0.0_r0.110
     [kernel_msm-extra-coral]=android-13.0.0_r0.110
 
-    # August 2023
-    [kernel_build-redbull]=android-13.0.0_r0.111
-    [kernel_msm-redbull]=android-13.0.0_r0.111
-    [kernel_msm-modules_qcacld-redbull]=android-13.0.0_r0.111
-    [kernel_msm-extra-redbull]=android-13.0.0_r0.111
+    # Beta 5
+    [kernel_build-redbull]=android-u-beta-5_r0.6
+    [kernel_msm-redbull]=android-u-beta-5_r0.6
+    [kernel_msm-modules_qcacld-redbull]=android-u-beta-5_r0.6
+    [kernel_msm-extra-redbull]=android-u-beta-5_r0.6
 
-    # August 2023
-    [kernel_build-gs]=android-13.0.0_r0.112
-    [kernel_gs]=android-13.0.0_r0.112
-    [kernel_google-modules_gpu-gs]=android-13.0.0_r0.112
-    [kernel_google-modules_wlan_bcmdhd_bcm4389-gs]=android-13.0.0_r0.112
+    # Beta 5
+    [kernel_build-gs]=android-u-beta-5_r0.2
+    [kernel_gs]=android-u-beta-5_r0.2
+    [kernel_google-modules_gpu-gs]=android-u-beta-5_r0.2
+    [kernel_google-modules_wlan_bcmdhd_bcm4389-gs]=android-u-beta-5_r0.2
 )
 
 readonly independent=(
@@ -199,6 +199,7 @@ readonly independent=(
 
 for repo in "${aosp_forks[@]}"; do
     echo -e "\n>>> $(tput setaf 3)Handling $repo$(tput sgr0)"
+    break
 
     cd $repo
     git checkout $branch
@@ -258,7 +259,17 @@ for repo in ${independent[@]}; do
     echo -e "\n>>> $(tput setaf 3)Handling $repo$(tput sgr0)"
 
     cd $repo
-    git checkout $branch
+    if [[ $repo == @(kernel_manifest-5.10|kernel_manifest-5.15|kernel_manifest-bluejay|kernel_manifest-coral|kernel_manifest-felix|kernel_manifest-felix|kernel_manifest-lynx|kernel_manifest-pantah|kernel_manifest-redbull|kernel_manifest-raviole|kernel_manifest-tangorpro|script|vendor_state) ]]; then
+        true
+    elif [[ $(git rev-list -n 1 13) == $(git rev-list -n 1 $branch) ]]; then
+        git checkout $branch
+    else
+        git checkout 13
+        git checkout -B $branch
+        git push -u origin $branch
+    fi
+    cd ..
+    continue
 
     if [[ $action == delete ]]; then
         git tag -d $tag_name || true
