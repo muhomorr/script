@@ -113,6 +113,7 @@ readonly kernels=(
 
     kernel_devices_google_akita
     kernel_devices_google_shusky
+    kernel_devices_google_tangorpro
     kernel_google-modules_power_reset-zuma
     kernel_google-modules_soc_gs
     kernel_google-modules_uwb_qorvo_qm35
