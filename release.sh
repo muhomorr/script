@@ -166,3 +166,10 @@ if [[ -f "$KEY_DIR/id_ed25519" ]]; then
     export PATH="$OLD_PATH"
     ssh-keygen -Y sign -n "factory images" -f "$KEY_DIR/id_ed25519" $DEVICE-factory-$BUILD_NUMBER.zip
 fi
+
+MAX_DOWNLOAD_SIZE=0xf900000
+if [[ $DEVICE == @(barbet|redfin|bramble) ]]; then
+    MAX_DOWNLOAD_SIZE=0x10000000
+fi
+
+fastboot -S $MAX_DOWNLOAD_SIZE optimize-factory-image $DEVICE-factory-$BUILD_NUMBER.zip
