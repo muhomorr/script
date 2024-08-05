@@ -99,6 +99,7 @@ readonly aosp_forks=(
     platform_system_logging
     platform_system_librustutils
     platform_system_netd
+    platform_system_nfc
     platform_system_sepolicy
     platform_system_vold
 )
