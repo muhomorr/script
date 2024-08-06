@@ -171,9 +171,9 @@ if [[ $DEVICE == @(barbet|redfin|bramble) ]]; then
     MAX_DOWNLOAD_SIZE=0x10000000
 fi
 
-fastboot -S $MAX_DOWNLOAD_SIZE optimize-factory-image $DEVICE-factory-$BUILD_NUMBER.zip
-
-mv $DEVICE-factory-$BUILD_NUMBER-opt.zip $DEVICE-install-$BUILD_NUMBER.zip
+# Second arg to optimize-factory-image is the name of outer zip directory.
+# Output zip name defaults to <outer zip dir name>.zip
+fastboot -S $MAX_DOWNLOAD_SIZE optimize-factory-image $DEVICE-factory-$BUILD_NUMBER.zip $DEVICE-install-$BUILD_NUMBER
 
 if [[ -f "$KEY_DIR/id_ed25519" ]]; then
     export PATH="$OLD_PATH"
