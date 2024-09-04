@@ -20,6 +20,8 @@ readonly aosp_forks=(
     device_common
     device_generic_goldfish
     device_google_akita
+    device_google_caimito
+    device_google_comet
     device_google_barbet
     device_google_barbet-sepolicy
     device_google_bluejay
@@ -36,6 +38,8 @@ readonly aosp_forks=(
     device_google_tangorpro
     device_google_zuma
     device_google_zuma-sepolicy
+    device_google_zumapro
+    device_google_zumapro-sepolicy
     kernel_configs
     platform_art
     platform_bionic
@@ -115,6 +119,17 @@ readonly kernels=(
     kernel_google-modules_uwb_qorvo_qm35
     kernel_google-modules_wlan_bcmdhd_bcm4383
     kernel_google-modules_wlan_bcmdhd_bcm4398
+
+    kernel_build-caimito
+    kernel_devices_google_caimito
+    kernel_devices_google_comet
+    kernel_google-modules_amplifiers-caimito
+    kernel_google-modules_bms-caimito
+    kernel_google-modules_edgetpu_rio
+    kernel_google-modules_gxp_zuma
+    kernel_google-modules_power_reset-caimito
+    kernel_google-modules_soc_gs-caimito
+    kernel_google-modules_wlan_bcmdhd_bcm4383-comet
 )
 
 declare -Ar kernel_tags_old=(
@@ -136,6 +151,18 @@ declare -Ar kernel_tags_old=(
     [kernel_google-modules_uwb_qorvo_qm35]=android-14.0.0_r0.118
     [kernel_google-modules_wlan_bcmdhd_bcm4383]=android-14.0.0_r0.118
     [kernel_google-modules_wlan_bcmdhd_bcm4398]=android-14.0.0_r0.118
+
+    # August 2024
+    [kernel_build-caimito]=android-14.0.0_r0.122
+    [kernel_devices_google_caimito]=android-14.0.0_r0.122
+    [kernel_devices_google_comet]=android-14.0.0_r0.124
+    [kernel_google-modules_amplifiers-caimito]=android-14.0.0_r0.122
+    [kernel_google-modules_bms-caimito]=android-14.0.0_r0.124
+    [kernel_google-modules_edgetpu_rio]=android-14.0.0_r0.124
+    [kernel_google-modules_gxp_zuma]=android-14.0.0_r0.124
+    [kernel_google-modules_power_reset-caimito]=android-14.0.0_r0.122
+    [kernel_google-modules_soc_gs-caimito]=android-14.0.0_r0.122
+    [kernel_google-modules_wlan_bcmdhd_bcm4383-comet]=android-14.0.0_r0.124
 )
 
 declare -Ar kernel_tags=(
@@ -157,6 +184,18 @@ declare -Ar kernel_tags=(
     [kernel_google-modules_uwb_qorvo_qm35]=android-14.0.0_r0.118
     [kernel_google-modules_wlan_bcmdhd_bcm4383]=android-14.0.0_r0.118
     [kernel_google-modules_wlan_bcmdhd_bcm4398]=android-14.0.0_r0.118
+
+    # August 2024
+    [kernel_build-caimito]=android-14.0.0_r0.122
+    [kernel_devices_google_caimito]=android-14.0.0_r0.122
+    [kernel_devices_google_comet]=android-14.0.0_r0.124
+    [kernel_google-modules_amplifiers-caimito]=android-14.0.0_r0.122
+    [kernel_google-modules_bms-caimito]=android-14.0.0_r0.124
+    [kernel_google-modules_edgetpu_rio]=android-14.0.0_r0.124
+    [kernel_google-modules_gxp_zuma]=android-14.0.0_r0.124
+    [kernel_google-modules_power_reset-caimito]=android-14.0.0_r0.122
+    [kernel_google-modules_soc_gs-caimito]=android-14.0.0_r0.122
+    [kernel_google-modules_wlan_bcmdhd_bcm4383-comet]=android-14.0.0_r0.124
 )
 
 readonly independent=(
@@ -164,6 +203,8 @@ readonly independent=(
     branding
     device_google_akita-kernel
     device_google_bluejay-kernel
+    device_google_caimito-kernels_6.1
+    device_google_comet-kernels_6.1
     device_google_felix-kernel
     device_google_lynx-kernel
     device_google_pantah-kernel
@@ -177,6 +218,8 @@ readonly independent=(
     kernel_manifest-5.10
     kernel_manifest-5.15
     kernel_manifest-6.1
+    kernel_manifest-caimito
+    kernel_manifest-comet
     kernel_manifest-gs
     kernel_manifest-zuma
     platform_external_AppCompatConfig
@@ -281,7 +324,7 @@ for repo in ${independent[@]}; do
         git tag -d $tag_name || true
         git push origin --delete $tag_name || true
     elif [[ $action == release ]]; then
-        if [[ $repo == @(kernel_manifest-5.10|kernel_manifest-5.15|kernel_manifest-6.1|kernel_manifest-gs|kernel_manifest-zuma) ]]; then
+        if [[ $repo == @(kernel_manifest-5.10|kernel_manifest-5.15|kernel_manifest-6.1|kernel_manifest-caimito|kernel_manifest-comet|kernel_manifest-gs|kernel_manifest-zuma) ]]; then
             git checkout -B tmp
             sed -i s%refs/heads/$branch%refs/tags/$tag_name% default.xml
             git commit default.xml -m $tag_name
