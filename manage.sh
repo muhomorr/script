@@ -32,9 +32,6 @@ readonly aosp_forks=(
     device_google_lynx
     device_google_pantah
     device_google_raviole
-    device_google_redbull
-    device_google_redbull-sepolicy
-    device_google_redfin
     device_google_shusky
     device_google_tangorpro
     device_google_zuma
@@ -102,11 +99,6 @@ readonly aosp_forks=(
 )
 
 readonly kernels=(
-    kernel_build-redbull
-    kernel_msm-redbull
-    kernel_msm-modules_qcacld-redbull
-    kernel_msm-extra-redbull
-
     kernel_build-gs
     kernel_devices_google_tangorpro
     kernel_gs
@@ -126,12 +118,6 @@ readonly kernels=(
 )
 
 declare -Ar kernel_tags_old=(
-    # August 2024
-    [kernel_build-redbull]=android-14.0.0_r0.111
-    [kernel_msm-redbull]=android-14.0.0_r0.111
-    [kernel_msm-modules_qcacld-redbull]=android-14.0.0_r0.111
-    [kernel_msm-extra-redbull]=android-14.0.0_r0.111
-
     # August 2024
     [kernel_build-gs]=android-14.0.0_r0.112
     [kernel_devices_google_tangorpro]=android-14.0.0_r0.112
@@ -153,12 +139,6 @@ declare -Ar kernel_tags_old=(
 )
 
 declare -Ar kernel_tags=(
-    # August 2024
-    [kernel_build-redbull]=android-14.0.0_r0.111
-    [kernel_msm-redbull]=android-14.0.0_r0.111
-    [kernel_msm-modules_qcacld-redbull]=android-14.0.0_r0.111
-    [kernel_msm-extra-redbull]=android-14.0.0_r0.111
-
     # August 2024
     [kernel_build-gs]=android-14.0.0_r0.112
     [kernel_devices_google_tangorpro]=android-14.0.0_r0.112
@@ -188,7 +168,6 @@ readonly independent=(
     device_google_lynx-kernel
     device_google_pantah-kernel
     device_google_raviole-kernel
-    device_google_redbull-kernel
     device_google_shusky-kernel
     device_google_tangorpro-kernel
     hardened_malloc
@@ -199,7 +178,6 @@ readonly independent=(
     kernel_manifest-5.15
     kernel_manifest-6.1
     kernel_manifest-gs
-    kernel_manifest-redbull
     kernel_manifest-zuma
     platform_external_AppCompatConfig
     platform_external_AppStore
@@ -303,7 +281,7 @@ for repo in ${independent[@]}; do
         git tag -d $tag_name || true
         git push origin --delete $tag_name || true
     elif [[ $action == release ]]; then
-        if [[ $repo == @(kernel_manifest-5.10|kernel_manifest-5.15|kernel_manifest-6.1|kernel_manifest-gs|kernel_manifest-redbull|kernel_manifest-zuma) ]]; then
+        if [[ $repo == @(kernel_manifest-5.10|kernel_manifest-5.15|kernel_manifest-6.1|kernel_manifest-gs|kernel_manifest-zuma) ]]; then
             git checkout -B tmp
             sed -i s%refs/heads/$branch%refs/tags/$tag_name% default.xml
             git commit default.xml -m $tag_name
