@@ -23,7 +23,6 @@ readonly aosp_forks=(
     device_google_barbet
     device_google_barbet-sepolicy
     device_google_bluejay
-    device_google_bramble
     device_google_felix
     device_google_gs-common
     device_google_gs101
