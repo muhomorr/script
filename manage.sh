@@ -202,16 +202,16 @@ declare -Ar kernel_tags=(
 readonly independent=(
     adevtool
     branding
-    device_google_akita-kernel
-    device_google_bluejay-kernel
+    device_google_akita-kernels_5.15
+    device_google_bluejay-kernels_5.10
     device_google_caimito-kernels_6.1
     device_google_comet-kernels_6.1
-    device_google_felix-kernel
-    device_google_lynx-kernel
-    device_google_pantah-kernel
-    device_google_raviole-kernel
-    device_google_shusky-kernel
-    device_google_tangorpro-kernel
+    device_google_felix-kernels_5.10
+    device_google_lynx-kernels_5.10
+    device_google_pantah-kernels_5.10
+    device_google_raviole-kernels_5.10
+    device_google_shusky-kernels_5.15
+    device_google_tangorpro-kernels_5.10
     hardened_malloc
     kernel_common-5.10
     kernel_common-5.15
