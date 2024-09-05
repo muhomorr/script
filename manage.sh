@@ -22,8 +22,6 @@ readonly aosp_forks=(
     device_google_akita
     device_google_caimito
     device_google_comet
-    device_google_barbet
-    device_google_barbet-sepolicy
     device_google_bluejay
     device_google_felix
     device_google_gs-common
