@@ -20,9 +20,9 @@ readonly aosp_forks=(
     device_common
     device_generic_goldfish
     device_google_akita
+    device_google_bluejay
     device_google_caimito
     device_google_comet
-    device_google_bluejay
     device_google_felix
     device_google_gs-common
     device_google_gs101
