@@ -74,6 +74,7 @@ readonly aosp_forks=(
     platform_packages_apps_Messaging
     platform_packages_apps_Nfc
     platform_packages_apps_Settings
+    platform_packages_apps_SettingsIntelligence
     platform_packages_apps_ThemePicker
     platform_packages_apps_WallpaperPicker2
     platform_packages_inputmethods_LatinIME
